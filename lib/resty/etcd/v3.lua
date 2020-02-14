@@ -59,11 +59,11 @@ local function _request_uri(self, method, uri, opts, timeout, ignore_auth)
         return nil, err
     end
 
+    utils.log_info('uri:', key, ' body:', body)
+
     if timeout then
         http_cli:set_timeout(timeout * 1000)
     end
-
-    utils.log_info('uri:', uri, ' body:', body)
 
     local res
     res, err = http_cli:request_uri(uri, {
@@ -110,7 +110,6 @@ function _M.new(opts)
     local http_host  = opts.http_host
     local user = opts.user
     local password = opts.password
-
     if not typeof.uint(timeout) then
         return nil, 'opts.timeout must be unsigned integer'
     end
@@ -388,7 +387,7 @@ local function get(self, key, attr)
             for _, kv in ipairs(res.body.kvs) do
                 kv.key = decode_base64(kv.key)
                 kv.value = decode_base64(kv.value)
-                kv.value = decode_json(kv.value)
+                --kv.value = decode_json(kv.value)
             end
         end
     end

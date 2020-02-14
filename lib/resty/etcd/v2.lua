@@ -327,6 +327,7 @@ local function get(self, key, attr)
         end
     end
 
+    --[[
     if res.status == 200 and res.body.node then
         local ok = decode_dir_value(self, res.body.node)
         if not ok then
@@ -339,6 +340,7 @@ local function get(self, key, attr)
             end
         end
     end
+    ]]--
 
     return res
 end
